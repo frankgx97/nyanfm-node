@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="minami.css">
+    <title>Loading...</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="css/stylesheets/style.css">
+    <meta name="author" content="i@nyan.im" />
+    <script src="js/jq1.7.1/jquery.min.js"></script>
+    <script>
+        console.log('FM@nyan.im\nCopyleft hyriamb,nyan.im 2015\nThanks to:无名科技博客,kotori.moe,nmdown,网易云音乐');
+    </script>
+</head>
+
+<body>
+    <script src="js/jq1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jq1.7.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/StackBlur.js"></script>
+    <script src="jquery.backstretch.min.js"></script>
+    <script>
+        //background
+        $.backstretch([
+            "http://music.nyan.im/images/large/7.jpg", "http://music.nyan.im/images/large/1.jpg", "http://music.nyan.im/images/large/2.jpg", "http://music.nyan.im/images/large/3.jpg", "http://music.nyan.im/images/large/17.jpg", "http://music.nyan.im/images/large/18.jpg", "http://music.nyan.im/images/large/4.jpg", "http://music.nyan.im/images/large/5.jpg", "http://music.nyan.im/images/large/6.jpg", "http://music.nyan.im/images/large/16.jpg", "http://music.nyan.im/images/large/8.jpg", "http://music.nyan.im/images/large/9.jpg", "http://music.nyan.im/images/large/20.jpg", "http://music.nyan.im/images/large/10.jpg", "http://music.nyan.im/images/large/11.jpg", "http://music.nyan.im/images/large/12.jpg", "http://music.nyan.im/images/large/13.jpg", "http://music.nyan.im/images/large/14.jpg", "http://music.nyan.im/images/large/15.jpg", "http://music.nyan.im/images/large/19.jpg", "http://music.nyan.im/images/large/21.jpg"
+        ], {
+            duration: 5000,
+            fade: 1200
+        });
+    </script>
+    <div class="kotori-player">
+        <div id="player">
+            <div class="cover"></div>
+            <div class="ctrl">
+                <div class="tag">
+                    <strong>Title</strong>
+                    <span class="artist">Artist</span>
+                    <span class="album">Album</span>
+                </div>
+                <div class="control">
+                    <div class="left">
+                        <div class="rewind icon"></div>
+                        <div class="playback icon"></div>
+                        <div class="fastforward icon"></div>
+                    </div>
+                    <div class="volume left">
+                        <div class="mute icon left"></div>
+                        <div class="slider left">
+                            <div class="pace"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="slider">
+                        <div class="loaded"></div>
+                        <div class="pace"></div>
+                    </div>
+                    <div class="timer left">0:00</div>
+                    <div class="right">
+                        <div class="repeat icon"></div>
+                        <div class="shuffle icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jq1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("ul").hide();
+        });
+    </script>
+    <script src="js/jq1.11.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("button").click(function() {
+                $("ul").toggle();
+            });
+        });
+    </script>
+    <div>
+        <br><br><br>
+        <p2>
+            <ul id="playlist"></ul>
+        </p2>
+    </div>
+    <!--<ul id="playlist"></ul>-->
+
+    <footer>
+        <style>
+            a:link {
+                color: #FFFFFF;
+            }
+            
+            a:visited {
+                color: #6699FF;
+            }
+            
+            a:hover {
+                color: #FF3333;
+            }
+            
+            a:active {
+                color: #0000FF;
+            }
+        </style>
+
+
+
+        <br>
+        <footer class="kotori-footer">
+            <div class="row">
+                <div class="col-md-2" align="center">
+                    <button id="kotori-player" class="btn btn-default right">播放列表</button>
+                    <br>
+                </div>
+                <div class="col-md-8">
+                    <p>Copyleft @ 2013-2017 <a href="http://nyan.im/">  nyan.im  </a></p>
+                    <p>
+                        <a href="https://blog.nyan.im/wp-content/uploads/2014/04/favicon2.ico"><img src="https://blog.nyan.im/wp-content/uploads/2014/04/favicon2.ico" alt="gmail" width="16" height="16" /> </a><a title="i@nyan.im" href="mailto://i@nyan.im" target="_blank">i@nyan.im&nbsp;</a>
+                        <a href="https://blog.nyan.im/wp-content/uploads/2014/04/weibo.png"><img src="https://blog.nyan.im/wp-content/uploads/2014/04/weibo.png" alt="weibo" width="16" height="16" /></a><a title="新浪微博" href="http://weibo.com/u/2234426480" target="_blank">http://weibo.com/u/2234426480</a></p>
+                    <br>
+                </div>
+            </div>
+        </footer>
+        <script src="js/jquery-ui-1.8.17.custom.min.js"></script>
+        <script src="js/script.js"></script>
+</body>
+
+</html>
