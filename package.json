@@ -22,6 +22,7 @@
         "mocha": "^3.2.0",
         "power-assert": "^1.4.2",
         "orm": "^3.2.3",
-        "node-mysql": "^0.4.2"
+        "node-mysql": "^0.4.2",
+        "request": "^2.81.0"
     }
 }
