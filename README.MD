@@ -7,6 +7,7 @@ http://music.nyan.im/
 
 ### GTD
 - [x] 与nodejs整合，动态加载播放列表
+- [ ] 整合cdn
 - [ ] 动态加载背景图
 - [ ] 优化js，不要再同时加载4个版本的jquery= =
 - [ ] 优化界面
