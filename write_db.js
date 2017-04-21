@@ -667,7 +667,7 @@ orm.connect(conf.sql, function(err, db) {
     var Song = db.define('song', db_model.schema);
     db.sync(function(err) {
         if (err) throw err;
-        songs.forEach(function(element) {
+        songs.reverse().forEach(function(element) {
             console.log(element.title);
             Song.create({
                 title: element.title,
