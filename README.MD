@@ -5,6 +5,12 @@
 ### Demo
 http://music.nyan.im/
 
+### GTD
+- [x] 与nodejs整合，动态加载播放列表
+- [ ] 动态加载背景图
+- [ ] 优化界面
+
+
 ### 历史
 * 2014.7 我基于[无名音乐电台](https://github.com/imshuhao/music-fm)修改后制作了这个播放器
 * 2015.7 更换了用于背景轮播的库，提升性能。
