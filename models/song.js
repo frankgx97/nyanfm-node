@@ -1,4 +1,3 @@
-var sql_connect = require('../conf.js');
 module.exports = {
     schema: {
         id: { type: 'serial', key: true },
