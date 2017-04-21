@@ -676,7 +676,8 @@ orm.connect(conf.sql, function(err, db) {
                 artist: element.artist,
                 cover: element.cover,
                 mp3: element.mp3,
-                ogg: element.ogg
+                ogg: element.ogg,
+                update_at: new Date().toISOString().slice(0, 19).replace('T', ' ')
             }, function(err) {
                 if (err)
                     throw err;

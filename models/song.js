@@ -10,6 +10,6 @@ module.exports = {
         mp3: String,
         ogg: String,
         lyric: String,
-        update_at: { type: 'date', null: true }
+        update_at: { type: 'date', time: true, null: true }
     }
 }
