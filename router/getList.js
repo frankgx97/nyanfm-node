@@ -5,7 +5,7 @@ router.get("/", (req, res) => {
     req.models.song.find({}, function(err, song) {
         if (err)
             throw err;
-        res.send(song);
+        res.send(song.reverse());
     });
 });
 
