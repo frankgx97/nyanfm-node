@@ -22,6 +22,11 @@
     });
 
     promise.then(function(value) {
+        $("ul").hide();
+        $("button").click(function() {
+            $("ul").toggle();
+        });
+
         if (!("Notification" in window)) {
             //alert("This browser does not support desktop notification");
         }
