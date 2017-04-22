@@ -3,6 +3,9 @@ const http = require('http')
 const app = express()
 
 var orm = require('orm')
+var cors = require('cors')
+
+app.use(cors())
 
 var sql_connect = require('./conf.js');
 var db_model = require('./models/song.js');

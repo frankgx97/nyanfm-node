@@ -1,5 +1,4 @@
 ﻿(function($) {
-    var api_url = 'http://www.guoduhao.cn:3001'
     console.log('FM@nyan.im\nCopyleft hyriamb,nyan.im 2015\nThanks to:无名科技博客,kotori.moe,nmdown,网易云音乐');
     var repeat = localStorage.repeat || 0,
         shuffle = localStorage.shuffle || 'true',
