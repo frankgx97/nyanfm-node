@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $.ajax({
-        url: '/get_bg',
+        url: api_url + '/get_bg',
         type: 'get',
         success: function(data) {
             //console.log(data)
