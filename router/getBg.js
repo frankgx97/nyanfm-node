@@ -5,7 +5,11 @@ router.get("/", (req, res) => {
     req.models.bg.find({}, function(err, bg) {
         if (err)
             throw err;
-        res.send(bg);
+        var rst = []
+        for (var i = 0; i < 20; i++) {
+            rst.push(bg[Math.floor((Math.random() * bg.length - 1) + 0)]);
+        }
+        res.send(rst);
     });
 });
 
