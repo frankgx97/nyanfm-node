@@ -23,7 +23,7 @@
 
     promise.then(function(value) {
         $("ul").hide();
-        $("button").click(function() {
+        $("#playlist-button").click(function() {
             $("ul").toggle();
         });
 
