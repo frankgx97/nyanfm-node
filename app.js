@@ -7,11 +7,11 @@ var cors = require('cors')
 
 app.use(cors())
 
-var sql_connect = require('./conf.js');
+var config = require('./conf.js');
 var db_model = require('./models/song.js');
 var db_bg_model = require('./models/bg.js');
 
-app.use(orm.express(sql_connect.sql, {
+app.use(orm.express(config.sql, {
     define: function(db, models, next) {
         models.song = db.define("song", db_model.schema);
         models.bg = db.define("bg", db_bg_model.schema);
@@ -21,8 +21,9 @@ app.use(orm.express(sql_connect.sql, {
 }));
 
 app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(express.static('mp3'));
+if (!config.isApiServer) {
+    app.use(express.static('public'));
+}
 
 app.use('/get_list', require('./router/getList'));
 
