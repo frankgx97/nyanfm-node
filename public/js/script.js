@@ -101,9 +101,7 @@
             loadMusic(track);
             if (isPlaying == true) play();
             //browsernotification
-            console.log(playlist[track].title);
-            console.log(playlist[track].album);
-            console.log(playlist[track].artist);
+            console.log('now playing:' + playlist[track].title + ' ' + playlist[track].album + ' ' + playlist[track].artis);
             notifyMe();
             document.title = playlist[track].title + ' - ' + playlist[track].artist
                 //===================
