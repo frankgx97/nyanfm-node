@@ -12,18 +12,17 @@ pipeline {
         sh 'docker build -t nyanim/nyanfm:latest .'
       }
     }
-    parallel(
-      "Push" : {
-        stage('Push') {
-          steps {
-            sh '''docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-docker push nyanim/nyanfm:latest'''
-          }
-        }
-      },
-      "Deploy":{
-        stage('Deploy') {
-          steps{
+
+    stage('Push') {
+      steps {
+        parallel(
+          "Push" : {
+            sh '''
+            docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+            docker push nyanim/nyanfm:latest
+            '''
+          },
+          "Deploy":{
             sshagent(['3a402fd8-ef4f-49fd-a83c-76a114a06b6c']) {
               sh '''
                 ssh -o StrictHostKeyChecking=no -l frank guoduhao.cn <<EOF 
@@ -33,9 +32,9 @@ docker push nyanim/nyanfm:latest'''
               '''
             }
           }
-        }
+        )
       }
-    )
+    }
     
     stage('Notification'){
       steps{
