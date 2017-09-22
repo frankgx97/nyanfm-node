@@ -15,4 +15,7 @@ RUN npm install -g cnpm --registry=https://registry.npm.taobao.org \
 COPY . .
 
 EXPOSE 3001
-CMD [ "npm", "start" ]
+
+CMD echo "exports.sql = $SQL_URI;" > conf.js \
+echo "exports.isApiServer = $IS_API_SERVER" >> conf.js \
+&& npm start
