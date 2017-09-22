@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Preparation') {
+    stage('Checkout') {
       steps {
         git(url: 'https://github.com/nyanim/nyanfm-node.git', branch: 'master')
       }
