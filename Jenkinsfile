@@ -20,7 +20,7 @@ pipeline {
 docker push nyanim/nyanfm:latest'''
           }
         }
-      }
+      },
       "Deploy":{
         stage('Deploy') {
           steps{
