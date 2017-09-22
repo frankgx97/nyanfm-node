@@ -23,14 +23,12 @@ pipeline {
             '''
           },
           "Deploy":{
-            sshagent(['3a402fd8-ef4f-49fd-a83c-76a114a06b6c']) {
-              sh '''
-                ssh -o StrictHostKeyChecking=no -l frank guoduhao.cn <<EOF 
-                sudo docker-compose -f /home/frank/dockers/nyanfm.yml down
-                sudo docker-compose -f /home/frank/dockers/nyanfm.yml up -d 
-                uname -a
-              '''
-            }
+            sh '''
+              sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -l frank guoduhao.cn <<EOF 
+              sudo docker-compose -f /home/frank/dockers/nyanfm.yml down
+              sudo docker-compose -f /home/frank/dockers/nyanfm.yml up -d 
+              uname -a
+            '''
           }
         )
       }
