@@ -13,7 +13,8 @@ pipeline {
     }
     stage('Push') {
       steps {
-        sh 'docker push nyanim/nyanfm'
+        sh '''docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+docker push nyanim/nyanfm'''
       }
     }
   }
