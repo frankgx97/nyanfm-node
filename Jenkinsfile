@@ -17,5 +17,12 @@ pipeline {
 docker push nyanim/nyanfm'''
       }
     }
+    stage('Notification'){
+            steps{
+                emailext body: '''$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+Check console output at $BUILD_URL to view the results.''', recipientProviders: [[$class: 'DevelopersRecipientProvider']], replyTo: 'i@nyan.im', subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', to: 'i@nyan.im'
+
+            }
   }
 }
