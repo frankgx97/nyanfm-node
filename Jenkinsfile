@@ -8,13 +8,13 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'docker build -t nyanim/nyanfm .'
+        sh 'docker build -t nyanim/nyanfm:latest .'
       }
     }
     stage('Push') {
       steps {
         sh '''docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-docker push nyanim/nyanfm'''
+docker push nyanim/nyanfm:latest'''
       }
     }
     stage('Notification'){
