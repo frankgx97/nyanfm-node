@@ -16,6 +16,5 @@ COPY . .
 
 EXPOSE 3001
 
-CMD echo "exports.sql = $SQL_URI;" > conf.js \
-echo "exports.isApiServer = $IS_API_SERVER" >> conf.js \
+CMD echo "exports.sql = $SQL_URI; exports.isApiServer = $IS_API_SERVER;" > conf.js \
 && npm start
