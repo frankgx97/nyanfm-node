@@ -23,6 +23,8 @@ var isMobile = {
     }
 };
 
+musicList = [];
+
 $(function() {
     if (mkPlayer.debug) {
         console.warn('播放器调试模式已开启，正常使用时请在 js/player.js 中按说明关闭调试模式');
@@ -276,13 +278,73 @@ $(function() {
     });
 
     // 初始化播放列表
-    initList();
+
+    $.ajax({
+        url: '/api/get_list',
+        type: 'get',
+        success: function(data) {
+            list = [{
+                    name: "搜索结果", // 播放列表名字
+                    cover: "", // 播放列表封面
+                    creatorName: "", // 列表创建者名字
+                    creatorAvatar: "", // 列表创建者头像
+                    item: []
+                },
+                // 预留列表：正在播放
+                {
+                    name: "正在播放", // 播放列表名字
+                    cover: "", // 播放列表封面
+                    creatorName: "", // 列表创建者名字
+                    creatorAvatar: "", // 列表创建者头像
+                    item: []
+                },
+                // 预留列表：播放历史
+                {
+                    name: "播放历史", // 播放列表名字
+                    cover: "images/history.png", // 播放列表封面
+                    creatorName: "", // 列表创建者名字
+                    creatorAvatar: "", // 列表创建者头像
+                    item: []
+                },
+                {
+                    name: "自定义列表", // 播放列表名字
+                    cover: "https://p3.music.126.net/34YW1QtKxJ_3YnX9ZzKhzw==/2946691234868155.jpg", // 播放列表封面图像
+                    creatorName: "", // 列表创建者名字(暂时没用到，可空)
+                    creatorAvatar: "", // 列表创建者头像(暂时没用到，可空)
+                    item: [ // 这里面放歌曲
+                        {
+                            id: "436514312", // 音乐ID
+                            title: "test", // 音乐名字
+                            artist: "赵雷", // 艺术家名字
+                            album: "成都", // 专辑名字
+                            //source: "netease", // 音乐来源
+                            //url_id: "436514312", // 链接ID
+                            //pic_id: "2946691234868155", // 封面ID
+                            //lyric_id: "436514312", // 歌词ID
+                            cover: "https://p3.music.126.net/34YW1QtKxJ_3YnX9ZzKhzw==/2946691234868155.jpg", // 专辑图片
+                            lyric: "",
+                            mp3: "" // mp3链接（此项建议不填，除非你有该歌曲的比较稳定的外链）
+                        }
+                    ]
+                } // 列表中最后一首歌大括号后面不要加逗号
+            ];
+            console.log(data);
+            console.log(list[3].item);
+            list[3].item = list[3].item.concat(data);
+            musicList = list;
+            console.log(musicList);
+            initList();
+        },
+        fail: function(err) {
+            alert(err);
+        }
+    });
 });
 
 // 展现系统列表中任意首歌的歌曲信息
 function musicInfo(list, index) {
     var music = musicList[list].item[index];
-    var tempStr = '<span class="info-title">歌名：</span>' + music.name +
+    var tempStr = '<span class="info-title">歌名：</span>' + music.title +
         '<br><span class="info-title">歌手：</span>' + music.artist +
         '<br><span class="info-title">专辑：</span>' + music.album;
 
@@ -304,16 +366,16 @@ function musicInfo(list, index) {
 
     if (mkPlayer.debug) {
         console.info('id: "' + music.id + '",\n' +
-            'name: "' + music.name + '",\n' +
+            'name: "' + music.title + '",\n' +
             'artist: "' + music.artist + '",\n' +
             'album: "' + music.album + '",\n' +
             'source: "' + music.source + '",\n' +
-            'url_id: "' + music.url_id + '",\n' +
-            'pic_id: "' + music.pic_id + '",\n' +
+            'url_id: "' + music.mp3_id + '",\n' +
+            'pic_id: "' + music.cover_id + '",\n' +
             'lyric_id: "' + music.lyric_id + '",\n' +
-            'pic: "' + music.pic + '",\n' +
+            'pic: "' + music.cover + '",\n' +
             'url: ""');
-        // 'url: "' + music.url + '"');
+        // 'url: "' + music.mp3 + '"');
     }
 }
 
@@ -378,11 +440,11 @@ function thisShare(obj) {
 // 下载歌曲
 // 参数：包含歌曲信息的数组
 function download(music) {
-    if (music.url == 'err' || music.url == "" || music.url == null) {
+    if (music.mp3 == 'err' || music.mp3 == "" || music.mp3 == null) {
         layer.msg('这首歌不支持下载');
         return;
     }
-    openDownloadDialog(music.url, music.name + ' - ' + music.artist);
+    openDownloadDialog(music.mp3, music.title + ' - ' + music.artist);
 }
 
 /**
@@ -411,13 +473,13 @@ function openDownloadDialog(url, saveName) {
 // 获取外链的ajax回调函数
 // 参数：包含音乐信息的数组
 function ajaxShare(music) {
-    if (music.url == 'err' || music.url == "" || music.url == null) {
+    if (music.mp3 == 'err' || music.mp3 == "" || music.mp3 == null) {
         layer.msg('这首歌不支持外链获取');
         return;
     }
 
-    var tmpHtml = '<p>' + music.artist + ' - ' + music.name + ' 的外链地址为：</p>' +
-        '<input class="share-url" onmouseover="this.focus();this.select()" value="' + music.url + '">' +
+    var tmpHtml = '<p>' + music.artist + ' - ' + music.title + ' 的外链地址为：</p>' +
+        '<input class="share-url" onmouseover="this.focus();this.select()" value="' + music.mp3 + '">' +
         '<p class="share-tips">* 获取到的音乐外链有效期较短，请按需使用。</p>';
 
     layer.open({
@@ -429,7 +491,7 @@ function ajaxShare(music) {
 // 改变右侧封面图像
 // 新的图像地址
 function changeCover(music) {
-    var img = music.pic; // 获取歌曲封面
+    var img = music.cover; // 获取歌曲封面
     var animate = false,
         imgload = false;
 
@@ -489,13 +551,13 @@ function loadList(list) {
     // 调试信息输出
     if (mkPlayer.debug) {
         if (musicList[list].id) {
-            console.log('加载播放列表 ' + list + ' - ' + musicList[list].name + '\n' +
+            console.log('加载播放列表 ' + list + ' - ' + musicList[list].title + '\n' +
                 'id: ' + musicList[list].id + ',\n' +
-                'name: "' + musicList[list].name + '",\n' +
+                'name: "' + musicList[list].title + '",\n' +
                 'cover: "' + musicList[list].cover + '",\n' +
                 'item: []');
         } else {
-            console.log('加载播放列表 ' + list + ' - ' + musicList[list].name);
+            console.log('加载播放列表 ' + list + ' - ' + musicList[list].title);
         }
     }
 
@@ -510,10 +572,10 @@ function loadList(list) {
         for (var i = 0; i < musicList[list].item.length; i++) {
             var tmpMusic = musicList[list].item[i];
 
-            addItem(i + 1, tmpMusic.name, tmpMusic.artist, tmpMusic.album);
+            addItem(i + 1, tmpMusic.title, tmpMusic.artist, tmpMusic.album);
 
             // 音乐链接均有有效期限制,重新显示列表时清空处理
-            if (list == 1 || list == 2) tmpMusic.url = "";
+            if (list == 1 || list == 2) tmpMusic.mp3 = "";
         }
 
         // 列表加载完成后的处理
@@ -793,12 +855,12 @@ function initList() {
                         // ajax获取列表信息
                         ajaxPlayList(musicList[i].id, i);
                     } else { // 列表 ID 未定义
-                        if (!musicList[i].name) musicList[i].name = '未命名';
+                        if (!musicList[i].title) musicList[i].title = '未命名';
                     }
                 }*/
 
         // 在前端显示出来
-        addSheet(i, musicList[i].name, musicList[i].cover);
+        addSheet(i, musicList[i].title, musicList[i].cover);
     }
 
     // 登陆了，但歌单又没有，说明是在刷新歌单
@@ -851,7 +913,7 @@ function clearDislist() {
 function refreshSheet() {
     // 调试信息输出
     if (mkPlayer.debug) {
-        console.log("开始播放列表 " + musicList[rem.playlist].name + " 中的歌曲");
+        console.log("开始播放列表 " + musicList[rem.playlist].title + " 中的歌曲");
     }
 
     $(".sheet-playing").removeClass("sheet-playing"); // 移除其它的正在播放

@@ -105,7 +105,7 @@ function audioPlay() {
     }
 
     var music = musicList[rem.playlist].item[rem.playid]; // 获取当前播放的歌曲信息
-    var msg = " 正在播放: " + music.name + " - " + music.artist; // 改变浏览器标题
+    var msg = " 正在播放: " + music.title + " - " + music.artist; // 改变浏览器标题
 
     // 清除定时器
     if (rem.titflash !== undefined) {
@@ -191,7 +191,7 @@ function listClick(no) {
 
     // 调试信息输出
     if (mkPlayer.debug) {
-        console.log("点播了列表中的第 " + (no + 1) + " 首歌 " + musicList[rem.dislist].item[no].name);
+        console.log("点播了列表中的第 " + (no + 1) + " 首歌 " + musicList[rem.dislist].item[no].title);
     }
 
     // 搜索列表的歌曲要额外处理
@@ -262,7 +262,7 @@ function playList(id) {
     rem.playid = id;
 
     // 如果链接为空，则 ajax 获取数据后再播放
-    if (musicList[1].item[id].url === null || musicList[1].item[id].url === "") {
+    if (musicList[1].item[id].mp3 === null || musicList[1].item[id].mp3 === "") {
         ajaxUrl(musicList[1].item[id], play);
     } else {
         play(musicList[1].item[id]);
@@ -289,22 +289,22 @@ function initAudio() {
 function play(music) {
     // 调试信息输出
     if (mkPlayer.debug) {
-        console.log('开始播放 - ' + music.name);
+        console.log('开始播放 - ' + music.title);
 
         console.info('id: "' + music.id + '",\n' +
-            'name: "' + music.name + '",\n' +
+            'name: "' + music.title + '",\n' +
             'artist: "' + music.artist + '",\n' +
             'album: "' + music.album + '",\n' +
             'source: "' + music.source + '",\n' +
-            'url_id: "' + music.url_id + '",\n' +
-            'pic_id: "' + music.pic_id + '",\n' +
+            'url_id: "' + music.mp3_id + '",\n' +
+            'pic_id: "' + music.cover_id + '",\n' +
             'lyric_id: "' + music.lyric_id + '",\n' +
-            'pic: "' + music.pic + '",\n' +
-            'url: "' + music.url + '"');
+            'pic: "' + music.cover + '",\n' +
+            'url: "' + music.mp3 + '"');
     }
 
     // 遇到错误播放下一首歌
-    if (music.url == "err") {
+    if (music.mp3 == "err") {
         audioErr(); // 调用错误处理函数
         return false;
     }
@@ -320,7 +320,7 @@ function play(music) {
 
     try {
         rem.audio[0].pause();
-        rem.audio.attr('src', music.url);
+        rem.audio.attr('src', music.mp3);
         rem.audio[0].play();
     } catch (e) {
         audioErr(); // 调用错误处理函数
