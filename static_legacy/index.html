@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <meta name="author" content="i@nyan.im" />
+    <script src="js/jquery.min.js"></script>
+    <script>
+        var api_url = 'http://nyanfm.guoduhao.cn'
+    </script>
+    <title>nyanfm</title>
+</head>
+
+<body>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/background.js"></script>
+    <div class="nyan-player">
+        <div id="player">
+            <div class="cover"></div>
+            <div class="ctrl">
+                <div class="tag">
+                    <strong>Title</strong>
+                    <span class="artist">Artist</span>
+                    <span class="album">Album</span>
+                </div>
+                <div class="control">
+                    <div class="left">
+                        <div class="rewind icon"></div>
+                        <div class="playback icon"></div>
+                        <div class="fastforward icon"></div>
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="slider">
+                        <div class="loaded"></div>
+                        <div class="pace"></div>
+                    </div>
+                    <div class="timer left">0:00</div>
+                    <div class="right">
+                        <div class="repeat icon"></div>
+                        <div class="shuffle icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <br><br><br>
+        <p2>
+            <ul id="playlist"></ul>
+        </p2>
+    </div>
+    <!--<ul id="playlist"></ul>-->
+
+    <footer>
+        <style>
+            a:link {
+                color: #FFFFFF;
+            }
+            
+            a:visited {
+                color: #6699FF;
+            }
+            
+            a:hover {
+                color: #FF3333;
+            }
+            
+            a:active {
+                color: #0000FF;
+            }
+        </style>
+        <a class="semi-transparent-button list-button" id="playlist-button">播放列表</a>
+        <script src="js/script.js"></script>
+        <script>
+            (function(i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function() {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://blog.nyan.im/static/analytics.js', 'ga');
+
+            ga('create', 'UA-64099589-3', 'auto');
+            ga('send', 'pageview');
+        </script>
+</body>
+
+</html>
