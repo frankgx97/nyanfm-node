@@ -49,6 +49,8 @@
 
     <!-- layer弹窗插件样式文件 -->
     <link rel="stylesheet" href="plugns/layer/skin/default/layer.css?v=3.0.2302" id="layuicss-skinlayercss">
+
+    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
@@ -160,6 +162,13 @@
 
     <!-- 背景模糊化插件 -->
     <script src="js/background-blur.min.js"></script>
+
+    <!--PWA Support-->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
 
     <!-- 站长统计代码 -->
     <span style="display: none">
