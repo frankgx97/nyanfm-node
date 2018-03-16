@@ -23,7 +23,8 @@ var isMobile = {
     }
 };
 
-musicList = [];
+var musicList = [];
+var ajaxList = [];
 
 $(function() {
     if (mkPlayer.debug) {
@@ -283,8 +284,8 @@ $(function() {
         url: '/api/get_list',
         type: 'get',
         success: function(data) {
-            list = [{
-                    name: "搜索结果", // 播放列表名字
+            musicList = [{
+                    title: "搜索结果", // 播放列表名字
                     cover: "", // 播放列表封面
                     creatorName: "", // 列表创建者名字
                     creatorAvatar: "", // 列表创建者头像
@@ -292,7 +293,7 @@ $(function() {
                 },
                 // 预留列表：正在播放
                 {
-                    name: "正在播放", // 播放列表名字
+                    title: "正在播放", // 播放列表名字
                     cover: "", // 播放列表封面
                     creatorName: "", // 列表创建者名字
                     creatorAvatar: "", // 列表创建者头像
@@ -300,38 +301,28 @@ $(function() {
                 },
                 // 预留列表：播放历史
                 {
-                    name: "播放历史", // 播放列表名字
+                    title: "播放历史", // 播放列表名字
                     cover: "images/history.png", // 播放列表封面
                     creatorName: "", // 列表创建者名字
                     creatorAvatar: "", // 列表创建者头像
                     item: []
                 },
                 {
-                    name: "自定义列表", // 播放列表名字
+                    title: "自定义列表", // 播放列表名字
                     cover: "https://p3.music.126.net/34YW1QtKxJ_3YnX9ZzKhzw==/2946691234868155.jpg", // 播放列表封面图像
                     creatorName: "", // 列表创建者名字(暂时没用到，可空)
                     creatorAvatar: "", // 列表创建者头像(暂时没用到，可空)
-                    item: [ // 这里面放歌曲
-                        {
-                            id: "436514312", // 音乐ID
-                            title: "test", // 音乐名字
-                            artist: "赵雷", // 艺术家名字
-                            album: "成都", // 专辑名字
-                            //source: "netease", // 音乐来源
-                            //url_id: "436514312", // 链接ID
-                            //pic_id: "2946691234868155", // 封面ID
-                            //lyric_id: "436514312", // 歌词ID
-                            cover: "https://p3.music.126.net/34YW1QtKxJ_3YnX9ZzKhzw==/2946691234868155.jpg", // 专辑图片
-                            lyric: "",
-                            mp3: "" // mp3链接（此项建议不填，除非你有该歌曲的比较稳定的外链）
-                        }
-                    ]
+                    item: []
                 } // 列表中最后一首歌大括号后面不要加逗号
             ];
+            ajaxList = data;
             console.log(data);
-            console.log(list[3].item);
-            list[3].item = list[3].item.concat(data);
-            musicList = list;
+            //list[1].item = list[1].item.concat(data);
+
+            musicList[1].item = data;
+            //console.log(list[1].item[89]['mp3'])
+            //console.log(list[1].item)
+            //musicList = list;
             console.log(musicList);
             initList();
         },
@@ -374,8 +365,7 @@ function musicInfo(list, index) {
             'pic_id: "' + music.cover_id + '",\n' +
             'lyric_id: "' + music.lyric_id + '",\n' +
             'pic: "' + music.cover + '",\n' +
-            'url: ""');
-        // 'url: "' + music.mp3 + '"');
+            'url: "' + music.mp3 + '"');
     }
 }
 
@@ -575,12 +565,12 @@ function loadList(list) {
             addItem(i + 1, tmpMusic.title, tmpMusic.artist, tmpMusic.album);
 
             // 音乐链接均有有效期限制,重新显示列表时清空处理
-            if (list == 1 || list == 2) tmpMusic.mp3 = "";
+            if (list == 1 || list == 2) tmpMusic.mp3 = ajaxList[i].mp3;
         }
 
         // 列表加载完成后的处理
         if (list == 1 || list == 2) { // 历史记录和正在播放列表允许清空
-            addListbar("clear"); // 清空列表
+            //addListbar("clear"); // 清空列表
         }
 
         if (rem.playlist === undefined) { // 未曾播放过
