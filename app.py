@@ -1,7 +1,8 @@
 #coding:utf8
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from database import db, Song, Bg 
 from playhouse.shortcuts import model_to_dict
+import json
 
 
 app = Flask(__name__, static_folder='static',static_url_path='')
@@ -30,12 +31,25 @@ def getBg():
     '''
     return jsonify({})
 
-@app.route(prefix + 'post_song')
-def postSong(content):
+@app.route(prefix + 'post_song', methods=['POST'])
+def postSong():
     '''
     Add new song to database
     '''
-    return jsonify({})
+    data = json.loads(request.data)
+    song = Song(
+        song_id=data['song_id'],
+        title=data['title'], 
+        artist=data['artist'],
+        album=data['album'],
+        cover=data['cover'],
+        mp3=data['mp3'],
+        lyric=data['lyric'],
+        clicks=0)
+    if song.save() == 1:
+        return jsonify({'code':0})
+    else:
+        return jsonify({'code':-1})
 
 if __name__ == '__main__':
     app.run()

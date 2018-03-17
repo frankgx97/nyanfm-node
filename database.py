@@ -16,7 +16,7 @@ class Song(BaseModel):
     album = CharField()
     cover = CharField()
     mp3 = CharField()
-    lyric = CharField()
+    lyric = TextField()
     clicks = IntegerField()
     update_at = DateTimeField(default=datetime.datetime.now)
 
