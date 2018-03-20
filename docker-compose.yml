@@ -1,0 +1,11 @@
+version: '3'
+services:
+    nyanfmng:
+        container_name: "nyanfmng"
+        image: "nyanim/nyanfmng"
+        ports:
+         - "5000:5000"
+        volumes:
+         - "$PWD/config.json:/usr/src/app/config.json"
+         - "$PWD/database.db:/usr/src/app/database.db"
+        restart: always

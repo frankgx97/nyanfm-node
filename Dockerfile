@@ -1,20 +1,16 @@
-FROM node:boron-alpine
+FROM python:2.7-alpine3.7
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json .
+COPY . .
 # For npm@5 or later, copy package-lock.json as well
 # COPY package.json package-lock.json ./
 
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org \
-&& cnpm install
+RUN pip install -r requirements.txt
 
-# Bundle app source
-COPY . .
+EXPOSE 5000
 
-EXPOSE 3001
-
-CMD echo "exports.sql = $SQL_URI; exports.isApiServer = $IS_API_SERVER;" > conf.js \
-&& npm start
+CMD export FLASK_APP=app.py && \
+    flask run
