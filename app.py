@@ -9,6 +9,8 @@ app = Flask(__name__, static_folder='static',static_url_path='')
 
 prefix = '/api/'
 
+config = json.loads(open('config.json').read())
+
 @app.route('/')
 def index():
     '''
@@ -37,6 +39,10 @@ def postSong():
     Add new song to database
     '''
     data = json.loads(request.data)
+    if data['key'] != config['key']:
+        print "Invalid key"
+        return jsonify({'code':-99})
+
     song = Song(
         song_id=data['song_id'],
         title=data['title'], 
@@ -45,11 +51,16 @@ def postSong():
         cover=data['cover'],
         mp3=data['mp3'],
         lyric=data['lyric'],
-        clicks=0)
-    if song.save() == 1:
-        return jsonify({'code':0})
-    else:
-        return jsonify({'code':-1})
+        clicks=0
+        )
+    try:
+        if song.save() == 1:
+            return jsonify({'code':0})
+        else:
+            return jsonify({'code':-1})
+    except Exception,e:
+        print e
+        return jsonify({'code':-2})
 
 if __name__ == '__main__':
     app.run()
