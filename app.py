@@ -3,9 +3,10 @@ from flask import Flask, jsonify, request
 from database import db, Song, Bg 
 from playhouse.shortcuts import model_to_dict
 import json
+import logging
 
 
-app = Flask(__name__, static_folder='static',static_url_path='')
+app = Flask(__name__, static_folder='static', static_url_path='')
 
 prefix = '/api/'
 
@@ -40,12 +41,12 @@ def postSong():
     '''
     data = json.loads(request.data)
     if data['key'] != config['key']:
-        print "Invalid key"
+        logging.warn("Invalid key")
         return jsonify({'code':-99})
 
     song = Song(
         song_id=data['song_id'],
-        title=data['title'], 
+        title=data['title'],
         artist=data['artist'],
         album=data['album'],
         cover=data['cover'],
@@ -58,8 +59,8 @@ def postSong():
             return jsonify({'code':0})
         else:
             return jsonify({'code':-1})
-    except Exception,e:
-        print e
+    except Exception, e:
+        logging.error(e)
         return jsonify({'code':-2})
 
 if __name__ == '__main__':
