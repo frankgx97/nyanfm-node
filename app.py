@@ -4,6 +4,7 @@ from database import db, Song, Bg
 from playhouse.shortcuts import model_to_dict
 import json
 import logging
+import random
 
 
 app = Flask(__name__, static_folder='static', static_url_path='')
@@ -32,7 +33,15 @@ def getBg():
     '''
     Return random background images
     '''
-    return jsonify({})
+    bg_list = list(Bg.select().dicts())
+    result = []
+    for i in range(0, 20):
+        rnd = bg_list[random.randint(0, len(bg_list))]['url']
+        if rnd not in result:
+            result.append(rnd)
+        else:
+            i -= 1
+    return jsonify(result)
 
 @app.route(prefix + 'post_song', methods=['POST'])
 def postSong():
