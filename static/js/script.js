@@ -9,7 +9,7 @@
 
     var promise = new Promise(function(resolve, reject) {
         $.ajax({
-            url: api_url + '/get_list',
+            url: '/api/get_list',
             type: 'get',
             success: function(data) {
                 playlist = data;
